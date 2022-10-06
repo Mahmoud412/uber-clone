@@ -9,7 +9,6 @@ import {
 import React from "react";
 import tw from "tailwind-react-native-classnames";
 import { Button, Icon } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
 
 const data = [
   {
