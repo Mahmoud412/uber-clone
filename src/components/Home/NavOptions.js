@@ -9,6 +9,8 @@ import {
 import React from "react";
 import tw from "tailwind-react-native-classnames";
 import { Button, Icon } from "react-native-elements";
+import { useSelector } from "react-redux";
+import { selectOrigin } from "../../redux/navSlice";
 
 const data = [
   {
@@ -26,6 +28,7 @@ const data = [
 ];
 
 const NavOptions = ({ navigation }) => {
+  const origin = useSelector(selectOrigin);
   return (
     <View>
       <FlatList
@@ -36,8 +39,9 @@ const NavOptions = ({ navigation }) => {
           <TouchableOpacity
             onPress={() => navigation.navigate(item.screen)}
             style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}
+            disabled={!origin}
           >
-            <View>
+            <View style={tw`${!origin && "opacity-20"}`}>
               <Image style={styles.imgae} source={{ uri: item.image }} />
               <Text style={tw`mt-2 text-lg font-semibold`}>{item.title}</Text>
               <Icon
