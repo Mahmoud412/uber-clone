@@ -1,17 +1,25 @@
-import { View, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import tw from "tailwind-react-native-classnames";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { useDispatch } from "react-redux";
 import { setDestination } from "../redux/navSlice";
 import { useNavigation } from "@react-navigation/native";
+import NavFavourites from "./Home/NavFavourites";
+import { Icon } from "react-native-elements";
 
 const NavigateCard = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   return (
-    <View style={tw`bg-white flex-1`}>
-      {/* <Text style={tw`text-center py-3 text-xl`}>Good Morning , oda</Text> */}
+    <SafeAreaView style={tw`bg-white flex-1`}>
+      <Text style={tw`text-center py-3 text-xl`}>Good Morning , oda</Text>
       <View style={tw`border-t border-gray-200 flex-shrink`}>
         <View>
           <GooglePlacesAutocomplete
@@ -34,8 +42,31 @@ const NavigateCard = () => {
             }}
           />
         </View>
+        <NavFavourites />
       </View>
-    </View>
+      <View
+        style={tw`flex-row bg-white justify-evenly py-7 mt-auto border-t border-gray-100`}
+      >
+        <TouchableOpacity
+          onPress={() => navigation.navigate("RideOptionsCard")}
+          style={tw`flex flex-row justify-between bg-black w-24 px-4 py-3 rounded-full`}
+        >
+          <Icon name="car" type="font-awesome" size={16} color="white" />
+          <Text style={tw`text-white text-center`}>Rides</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={tw`flex flex-row justify-between w-24 px-4 py-3 rounded-full`}
+        >
+          <Icon
+            name="fast-food-outline"
+            type="ionicon"
+            size={16}
+            color="black"
+          />
+          <Text style={tw` text-center`}>Eats</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 };
 
