@@ -17,6 +17,8 @@ import { Icon } from "react-native-elements";
 const NavigateCard = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
+  const GOOGLE_API_KEY = "AIzaSyBdWXLk2Bg4cuQaA4ywGTL-R0N0S3GlLcQ";
+
   return (
     <SafeAreaView style={tw`bg-white flex-1`}>
       <Text style={tw`text-center py-3 text-xl`}>Good Morning , oda</Text>
@@ -26,7 +28,7 @@ const NavigateCard = () => {
             styles={toInputBoxStyles}
             nearbyPlacesAPI="GooglePlacesSearch"
             debounce={400}
-            query={{ key: "AIzaSyBdWXLk2Bg4cuQaA4ywGTL-R0N0S3GlLcQ" }}
+            query={{ key: GOOGLE_API_KEY }}
             placeholder="Where To"
             fetchDetails={true}
             enablePoweredByContainer={false}

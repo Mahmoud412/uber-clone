@@ -10,7 +10,7 @@ const Map = () => {
   const origin = useSelector(selectOrigin);
   const destination = useSelector(selectDestination);
   const mapRef = useRef(null);
-
+  const GOOGLE_API_KEY = "AIzaSyBdWXLk2Bg4cuQaA4ywGTL-R0N0S3GlLcQ";
   useEffect(() => {
     if (!origin || !destination) return;
 
@@ -18,6 +18,22 @@ const Map = () => {
       edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
     });
   }, [origin, destination]);
+
+  useEffect(() => {
+    if (!origin || !destination) return;
+    const getTravelTime = async () => {
+      fetch(
+        `https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${destination.description}&origins=${origin.description}&units=imperial&key=${GOOGLE_API_KEY}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        });
+    };
+
+    getTravelTime();
+  }, [origin, destination, GOOGLE_API_KEY]);
+
   return (
     <MapView
       ref={mapRef}
