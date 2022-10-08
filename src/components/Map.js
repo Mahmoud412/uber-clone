@@ -2,8 +2,12 @@ import { View, Text, StyleSheet } from "react-native";
 import React, { useEffect, useRef } from "react";
 import tw from "tailwind-react-native-classnames";
 import MapView, { Marker } from "react-native-maps";
-import { useSelector } from "react-redux";
-import { selectDestination, selectOrigin } from "../redux/navSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  selectDestination,
+  selectOrigin,
+  setTravelTimeInformation,
+} from "../redux/navSlice";
 import MapViewDirections from "react-native-maps-directions";
 
 const Map = () => {
@@ -11,6 +15,7 @@ const Map = () => {
   const destination = useSelector(selectDestination);
   const mapRef = useRef(null);
   const GOOGLE_API_KEY = "AIzaSyBdWXLk2Bg4cuQaA4ywGTL-R0N0S3GlLcQ";
+  const dispatch = useDispatch();
   useEffect(() => {
     if (!origin || !destination) return;
 
@@ -27,7 +32,7 @@ const Map = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+          dispatch(setTravelTimeInformation(data.rows[0].elements[0]));
         });
     };
 
